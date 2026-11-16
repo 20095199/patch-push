@@ -7,7 +7,7 @@
 - 一条命令完成「切目标分支 → 拉最新 → 建集成分支 → 按 Jira 过滤提交 → 倒序 cherry-pick → push → 打印 MR 链接」。
 - 同时处理多个 repo、多个目标分支。
 - 自动跳过已被后续 `Revert` 提交撤销的提交。
-- cherry-pick 冲突时暂停，人工处理后继续；支持 skip 和退出后断点续跑。
+- cherry-pick 冲突时暂停，人工或 AI 助手处理后继续；支持 skip 和退出后断点续跑。
 - 默认只做**安全推送**：不再删除远端同名分支，使用 `--force-with-lease` 更新。
 - 结束时自动切回执行前的分支。
 - 把本次结果（提交清单、MR 链接、失败原因）追加写入 `push_report.txt`，调试日志写入 `patchpush.log`（自动轮转）。
@@ -139,6 +139,16 @@ repo:
 3. 想彻底放弃时用 `--abort`。
 
 断点信息保存在 `<config 路径>.state`（例如 `config.yaml.4135.state`），完成后自动删除。
+
+### 结合 AI 自动解决冲突（强烈推荐）
+
+现在可以把冲突处理交给 AI 编码助手（如 Claude Code、OpenCode、Cursor 等）：
+
+1. 工具因冲突暂停时，让 AI 读取冲突文件以及 `git status` / `git diff`。
+2. AI 结合目标分支当前代码和开发提交的意图，直接修改冲突文件，而不是无脑 `--theirs` / `--ours`。
+3. 人工快速 review 后输入 `y`；如果 AI 已手动完成 `git cherry-pick --continue`，直接用同样的参数加 `--continue` 续跑。
+
+原本最耗时、最劝退的 cherry-pick 冲突，现在基本是「AI 解、人确认」，一次推多个 repo、多个分支也超爽。
 
 ## 提交规范
 
