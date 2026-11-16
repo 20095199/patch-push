@@ -1,0 +1,25 @@
+# Build artifacts
+/patchpush
+/dist/
+/bin/
+/nbin/
+/mr
+*.exe
+
+# Runtime output
+*.log
+*.log.*
+push_report.txt
+push_report.txt.*
+*.state
+*.state.tmp
+
+# Local configuration copies
+config.yaml.*
+!config.yaml
+*.swp
+*.swo
+
+# Editor / OS
+.idea/
+.DS_Store

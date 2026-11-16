@@ -1,0 +1,33 @@
+patch:
+  dev_branch: PROJ-123_example_feature_dev
+  tgt_branchs:
+    - qa
+    - staging
+  jira_id: PROJ-123
+  jira_desc: example_feature
+  # 默认要操作的 repo，等价于命令行 -r；命令行 -r 优先。
+  repos:
+    - service-a
+    - service-b
+
+# push 默认参数，等价于命令行 -m/-dry-run/-yes/-continue/-abort；命令行显式参数优先。
+push:
+  model: n
+  dry_run: false
+  yes: false
+  continue: false
+  abort: false
+
+# pull 默认参数，等价于命令行 -d；命令行 -d 优先。
+pull:
+  delete: false
+
+repo:
+  service-a:
+    name: service-a
+    url: https://git.example.com/team/service-a/
+    path: /path/to/service-a
+  service-b:
+    name: service-b
+    url: https://git.example.com/team/service-b/
+    path: /path/to/service-b
